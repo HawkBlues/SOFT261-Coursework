@@ -17,7 +17,7 @@ public class Campus implements IBuilding, ISubject {
     private List<Building> BuildingList;
     private String CampusName;
     private String CampusMode;
-    private ArrayList<IObservers> Observers = new ArrayList<>();
+    private ArrayList<IObservers> Observers = new ArrayList<>(); 
 
     /**
      * Campus Constructor Class populates Campus parameters with given parameter

@@ -5,13 +5,16 @@
  */
 package Buidlings;
 
+import Buidlings.Logging.AccessLogger;
+import Buidlings.Logging.Logger;
 import accessPeople.SwipeCard;
+import java.io.IOException;
 import java.time.LocalTime;
 import java.util.List;
 
 /**
- *Creates new Class called Room, instantiating required Properties.
- * 
+ * Creates new Class called Room, instantiating required Properties.
+ *
  */
 public class Room implements IObservers {
 
@@ -20,6 +23,8 @@ public class Room implements IObservers {
     private String RoomType;
     private String RoomMode;
     private RoomAccessTime RoomTime;
+    private AccessLogger logger;
+    private Floor floor;
 
     /**
      * Populate room object with name, type with default mode of "Normal" and
@@ -29,11 +34,13 @@ public class Room implements IObservers {
      * @param type
      * @param building
      */
-    public Room(String name, String type, Building building) {
+    public Room(String name, String type, Floor floor) {
         this.RoomName = name;
         this.RoomType = type;
         this.RoomMode = "Normal";
-        building.registerObservers(this);
+        floor.registerObservers(this);
+        this.floor = floor;
+        this.logger = new AccessLogger();
     }
 
     /**
@@ -79,13 +86,14 @@ public class Room implements IObservers {
      * @param card
      * @return
      */
-    public Boolean tryRoomAccess(SwipeCard card) {
+    public Boolean tryRoomAccess(SwipeCard card) throws IOException {
 
         List<String> roles = card.getRole();
 
         for (Integer i = 0; i < card.getRole().size(); i++) {
             // If asses roles taking in the current role returns true access was found.
             if (this.assessRoles(roles.get(i))) {
+                this.logger.createAccessLog(card, this.floor.getFloorNumber(), this.floor.getBuilding().getName(), this.RoomName, true);
                 return true;
             }
         }
@@ -199,7 +207,8 @@ public class Room implements IObservers {
 
     /**
      * Sets current room mode to given parameter
-     * @param mode 
+     *
+     * @param mode
      */
     @Override
     public void update(String mode) {

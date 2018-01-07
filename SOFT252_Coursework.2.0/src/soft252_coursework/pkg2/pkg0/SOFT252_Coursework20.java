@@ -7,10 +7,12 @@ package soft252_coursework.pkg2.pkg0;
 
 import Buidlings.Building;
 import Buidlings.Campus;
+import Buidlings.Logging.Logger;
 import Buidlings.Room;
 import Buidlings.RoomAccessTime;
 import accessPeople.PeopleFactory;
 import accessPeople.Person;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalTime;
@@ -18,14 +20,14 @@ import static java.time.temporal.TemporalQueries.localTime;
 
 /**
  *
- * 
+ *
  */
 public class SOFT252_Coursework20 {
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         List allStaffList = new ArrayList();
         List staffRole = new ArrayList();
         PeopleFactory newPerson = new PeopleFactory();
@@ -61,13 +63,17 @@ public class SOFT252_Coursework20 {
 
         Building b1 = buildings.get(0);
 
-
-
-        b1.makeRoom("101", "LectureHall", b1);
-
         c1.notifyObservers("false");
-        
+
         System.out.println("End");
+
+        Logger _logger = Logger.getInstance();
+
+        try {
+            _logger.WriteToAccessLogFile("Teswwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwt");
+        } catch (IOException e) {
+            System.out.println(e);
+        }
 
 //        Person newperson = new Person(2, "John");
 //        System.out.println(newperson.getName());

@@ -10,112 +10,116 @@ import java.util.List;
 
 /**
  * Produces Building class which instantiates Properties.
- * 
+ *
  */
 public class Building implements IBuilding, ISubject, IObservers {
 
-    private List<Room> RoomList;
+    private List<Floor> FloorList;
     private String BuildingName;
     private String BuildingMode;
     private ArrayList<IObservers> Observers = new ArrayList<>();
 
     /**
-     * Populates current object with provided paramaters and default details, produces List for all floors within building. Registers Building to observers list. 
+     * Populates current object with provided paramaters and default details,
+     * produces List for all floors within building. Registers Building to
+     * observers list.
+     *
      * @param name
-     * @param campus 
+     * @param campus
      */
     public Building(String name, Campus campus) {
         this.BuildingName = name;
         this.BuildingMode = "Normal";
-        this.RoomList = new ArrayList<>();
+        this.FloorList = new ArrayList<>();
         campus.registerObservers(this);
-    }
-    
-    /**
-     * Adds new room to RoomList for current building object.
-     * @param name
-     * @param type
-     * @param building 
-     */
-    public void makeRoom(String name, String type, Building building) {
-        this.RoomList.add(new Room(name, type, building));
-    }
-    /**
-     * Removes room from current building Object.
-     * @param index 
-     */
-    public void removeRoom(Integer index) {
-        this.RoomList.remove(index);
     }
 
     /**
-     * Returns list of rooms for current building object.
-     * @return 
+     * Populates FloorList list with given paramaters. (Producind a list of
+     * floors within buildings)
+     *
+     * @param floorNumb
+     * @param building
      */
-    public List<Room> getRoomList() {
-        return RoomList;
+    public void makeFloor(Integer floorNumb, Building building) {
+        this.FloorList.add(new Floor(floorNumb, building));
     }
+
     /**
-     * Enables current building object roomList to be overwritten with new building roomList.
-     * @param RoomList 
+     * Remove floor from list, using given index.
+     *
+     * @param index
      */
-    public void setRoomList(List<Room> RoomList) {
-        this.RoomList = RoomList;
+    public void removeFloor(Integer index) {
+        this.FloorList.remove(index);
     }
+
     /**
      * Returns current building mode for current building object.
-     * @return 
+     *
+     * @return
      */
     public String getBuildingMode() {
         return BuildingMode;
     }
+
     /**
      * Sets building mode for current building object.
-     * @param BuildingMode 
+     *
+     * @param BuildingMode
      */
     public void setBuildingMode(String BuildingMode) {
         this.BuildingMode = BuildingMode;
     }
+
     /**
      * Returns current building object name.
-     * @return 
+     *
+     * @return
      */
     @Override
     public String getName() {
         return this.BuildingName;
     }
+
     /**
-     * Sets building name to given parameter
-     * (Allows building name to be changed)
+     * Sets building name to given parameter (Allows building name to be
+     * changed)
+     *
      * @param name
-     * @return 
+     * @return
      */
     @Override
     public void setName(String name) {
-       this.BuildingName = name;
+        this.BuildingName = name;
     }
-    
+
     /**
-     * Using given parameter, updates all building modes, thus all rooms by extension.
-     * @param mode 
+     * Using given parameter, updates all building modes, thus all rooms by
+     * extension.
+     *
+     * @param mode
      */
     @Override
     public void update(String mode) {
         setBuildingMode(mode);
         notifyObservers(mode);
     }
+
     /**
      * Adds current object to Observers list.
-     * @param observer 
+     *
+     * @param observer
      */
     @Override
     public void registerObservers(IObservers observer) {
         this.Observers.add(observer);
     }
-    
+
     /**
-     * Changes mode from given parameter for every object within Observers list. 
-     * @param mode 
+     * Changes mode from given parameter for every object within Observers list.
+     *
+     * @param mode
      */
     @Override
     public void notifyObservers(String mode) {
