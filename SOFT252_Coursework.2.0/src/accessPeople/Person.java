@@ -8,8 +8,8 @@ package accessPeople;
 import java.util.List;
 
 /**
- *
- * @author Max
+ * Abstract class Person, used as Base class for all card holders.
+ * instantiates Property Swipecard.
  */
 public abstract class Person {
 
@@ -22,13 +22,16 @@ public abstract class Person {
     }
 
     /**
-     * Gets the persons swipecard object.
+     * Returns the persons swipecard object.
      * @return SwipeCard Object.
      */
     public SwipeCard getMySwipeCard() {
         return this.MySwipeCard;
     }
-
+    /**
+     * Overwrites current swipecard object with new swipecard object.
+     * @param MySwipeCard 
+     */
     public void setMySwipeCard(SwipeCard MySwipeCard) {
         this.MySwipeCard = MySwipeCard;
     }

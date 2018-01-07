@@ -6,12 +6,12 @@
 package Buidlings;
 
 /**
- *
- * @author Max
+ *Produces interface ISubject/
+ * Ensures registerObservers & notifyObservers method is available .
  */
-public interface Subject {
+public interface ISubject {
 
-    public void registerObservers(Observers observer);
+    public void registerObservers(IObservers observer);
 
     public void notifyObservers(String mode);
 

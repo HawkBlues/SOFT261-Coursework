@@ -18,7 +18,7 @@ import static java.time.temporal.TemporalQueries.localTime;
 
 /**
  *
- * @author Max
+ * 
  */
 public class SOFT252_Coursework20 {
 

@@ -8,8 +8,8 @@ package accessPeople;
 import java.util.List;
 
 /**
- *
- * @author Max
+ * Creates Class Visitor and calls Super Class Constructor with given parameters..
+ * 
  */
 public class Visitor extends Person {
     

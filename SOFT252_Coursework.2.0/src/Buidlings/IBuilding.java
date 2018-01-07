@@ -6,14 +6,13 @@
 package Buidlings;
 
 /**
- *
- * @author Max
+ *Produces interface IBuilding
+ * Ensures getName & setName methods is available .
+ * 
  */
 public interface IBuilding {
      
     public String getName();
-    public String setName(String name);
+    public void setName(String name);
     
-    public Integer getID();
-    public Integer setID(Integer id);
 }

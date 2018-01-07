@@ -6,9 +6,12 @@
 package Buidlings;
 
 /**
- *
- * @author Max
+ * Produces IObservers interface.
+ * Ensures update method with String mode parameter is available 
+ * 
  */
-public class BuildingFactory {
+public interface IObservers {
+    
+    public void update(String mode);
     
 }

@@ -8,17 +8,26 @@ package Buidlings;
 import java.time.LocalTime;
 
 /**
- *
- * @author Max
+ *Creates new Class RoomAccessTime which Checks and compares times.
+ * instantiating Property LocalTime.
  */
 public class RoomAccessTime {
 
     private LocalTime localtime;
-
+    
+    /**
+     * Populates localtime variable with the local time.
+     */
     public RoomAccessTime() {
         this.localtime = LocalTime.now();
     }
 
+    /**
+     * Compares given time paramters with LocalTime, returning Boolean.
+     * @param startTime
+     * @param EndTime
+     * @return 
+     */
     public Boolean CheckTimeBetweenRange(LocalTime startTime, LocalTime EndTime) {
 
         if (localtime.isAfter(EndTime) || localtime.isBefore(startTime)) { //checks to see if timerange is outside specified times.

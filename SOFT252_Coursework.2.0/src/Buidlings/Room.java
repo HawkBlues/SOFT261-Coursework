@@ -10,10 +10,10 @@ import java.time.LocalTime;
 import java.util.List;
 
 /**
- *
- * @author Max
+ *Creates new Class called Room, instantiating required Properties.
+ * 
  */
-public class Room implements Observers {
+public class Room implements IObservers {
 
     private List<Room> RoomList;
     private String RoomName;
@@ -21,6 +21,14 @@ public class Room implements Observers {
     private String RoomMode;
     private RoomAccessTime RoomTime;
 
+    /**
+     * Populate room object with name, type with default mode of "Normal" and
+     * register the room object to Observers.
+     *
+     * @param name
+     * @param type
+     * @param building
+     */
     public Room(String name, String type, Building building) {
         this.RoomName = name;
         this.RoomType = type;
@@ -28,22 +36,49 @@ public class Room implements Observers {
         building.registerObservers(this);
     }
 
+    /**
+     * Set the object room mode to a new mode
+     *
+     * @param mode
+     */
     public void setRoomMode(String mode) {
         this.RoomMode = mode;
     }
 
+    /**
+     * Return current object room Mode.
+     *
+     * @return
+     */
     public String getRoomMode() {
         return this.RoomMode;
     }
 
+    /**
+     * Returns room type from current object.
+     *
+     * @return
+     */
     public String getRoomType() {
         return this.RoomType;
     }
 
+    /**
+     * Returns Room name from current object
+     *
+     * @return
+     */
     public String getRoomName() {
         return this.RoomName;
     }
 
+    /**
+     * Returns Boolean if card can access current room (Allowing multiple Role
+     * types)
+     *
+     * @param card
+     * @return
+     */
     public Boolean tryRoomAccess(SwipeCard card) {
 
         List<String> roles = card.getRole();
@@ -58,7 +93,7 @@ public class Room implements Observers {
     }
 
     /**
-     * Given a role, assess if Card has access to a room.
+     * Given a Role, assess if Card has access to a room.
      *
      * @return
      */
@@ -162,6 +197,10 @@ public class Room implements Observers {
 
     }
 
+    /**
+     * Sets current room mode to given parameter
+     * @param mode 
+     */
     @Override
     public void update(String mode) {
         setRoomMode(mode);

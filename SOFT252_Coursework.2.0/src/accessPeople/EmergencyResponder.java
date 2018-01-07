@@ -8,8 +8,8 @@ package accessPeople;
 import java.util.List;
 
 /**
+ *Creates Class EmergencyResponder and calls Super Class Constructor with given parameters.
  *
- * @author Max
  */
 public class EmergencyResponder extends Person {
 

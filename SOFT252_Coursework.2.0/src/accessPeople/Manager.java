@@ -8,8 +8,8 @@ package accessPeople;
 import java.util.List;
 
 /**
- *
- * @author Max
+ *Creates Class Manager and calls Super Class Constructor with given parameters.
+ * 
  */
 public class Manager extends Person {
 

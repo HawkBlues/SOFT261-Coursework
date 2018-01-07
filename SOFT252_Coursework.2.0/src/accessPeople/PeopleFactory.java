@@ -6,25 +6,31 @@
 package accessPeople;
 
 import java.util.List;
+
 /**
+ * People Factory Class follows Factory Pattern to create new people.
  *
- * @author Max
  */
 public class PeopleFactory { //factory class
 
     public PeopleFactory() {
-        
-       
-        
-    }
 
-    public Person createPerson(Integer id, String name, List<String>role) {
+    }
+    /**
+     * CreatePerson uses given parameters to create a new object depending on given role, which is then returned within a Person object.
+     * (Allows multiple roles, as the Role List is passed into the new role)
+     * @param id
+     * @param name
+     * @param role
+     * @return 
+     */
+    public Person createPerson(Integer id, String name, List<String> role) {
         Person person = null;
-        String currentRole = role.get(0);//getting first instance of whats inside, as that's most important (Allows multiple roles)
-        
-        switch(currentRole){ 
-            case "Staff": 
-                person = new Staff(id, name, role); //put in a switch for all staff members
+        String currentRole = role.get(0);//Primary Role is always passed first.
+
+        switch (currentRole) {
+            case "Staff":
+                person = new Staff(id, name, role); 
                 break;
             case "Student":
                 person = new Student(id, name, role);
@@ -36,7 +42,7 @@ public class PeopleFactory { //factory class
                 person = new Visitor(id, name, role);
                 break;
             case "Manager":
-                person  = new Manager( id, name, role);
+                person = new Manager(id, name, role);
                 break;
             case "Security":
                 person = new Security(id, name, role);

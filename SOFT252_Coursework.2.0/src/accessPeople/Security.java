@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  *
- * @author Max
+ * Creates Class Security and calls Super Class Constructor with given parameters.
  */
 public class Security extends Person {
     
