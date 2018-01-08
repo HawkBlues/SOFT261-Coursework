@@ -38,6 +38,7 @@ public class Room implements IObservers {
         this.RoomName = name;
         this.RoomType = type;
         this.RoomMode = "Normal";
+        this.RoomTime = new RoomAccessTime();
         floor.registerObservers(this);
         this.floor = floor;
         this.logger = new AccessLogger();
@@ -94,7 +95,7 @@ public class Room implements IObservers {
             // If asses roles taking in the current role returns true access was found.
             if (this.assessRoles(roles.get(i))) {
                 this.logger.createAccessLog(card, this.floor.getFloorNumber(), this.floor.getBuilding().getName(), this.RoomName, true);
-                return true;
+                //return true; Fiddling (Do we I need this, messes up testing/(testTryRoomAccessContractCleaner())
             }
         }
         return false;

@@ -75,6 +75,8 @@ public class SOFT252_Coursework20 {
             System.out.println(e);
         }
 
+        
+        
 //        Person newperson = new Person(2, "John");
 //        System.out.println(newperson.getName());
     }

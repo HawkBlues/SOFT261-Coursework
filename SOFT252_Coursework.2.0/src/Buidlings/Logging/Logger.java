@@ -23,7 +23,7 @@ public class Logger {
     private List<String> entires;
 
     /**
-     * Logger sets default log file name and instantiates entires array list
+     * Logger sets default log file name and instantiates entries array list
      */
     protected Logger() {
         this.FileName = "AccessLogText.txt";
@@ -42,7 +42,7 @@ public class Logger {
         return instance;
     }
     /**
-     * WriteToAccessLogFile writes the given paramater to the previously instantiated file.
+     * WriteToAccessLogFile writes the given parameter to the previously instantiated file.
      * @param textLine
      * @throws IOException 
      */

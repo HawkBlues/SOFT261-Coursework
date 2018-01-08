@@ -13,7 +13,7 @@ import java.util.List;
  *
  */
 public class Building implements IBuilding, ISubject, IObservers {
-
+    
     private List<Floor> FloorList;
     private String BuildingName;
     private String BuildingMode;
@@ -52,6 +52,18 @@ public class Building implements IBuilding, ISubject, IObservers {
      */
     public void removeFloor(Integer index) {
         this.FloorList.remove(index);
+    }
+    
+    public List<Floor> getFloorList() {
+        return FloorList;
+    }
+    
+    public void addFloor(Floor floor) {
+        this.FloorList.add(floor);
+    }
+    
+    public String getBuildingName() {
+        return BuildingName;
     }
 
     /**
@@ -127,5 +139,5 @@ public class Building implements IBuilding, ISubject, IObservers {
             o.update(mode);
         });
     }
-
+    
 }
