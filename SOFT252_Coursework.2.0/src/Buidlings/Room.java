@@ -32,7 +32,7 @@ public class Room implements IObservers {
      *
      * @param name
      * @param type
-     * @param building
+     * @param floor
      */
     public Room(String name, String type, Floor floor) {
         this.RoomName = name;
@@ -62,6 +62,10 @@ public class Room implements IObservers {
         return this.RoomMode;
     }
 
+    public Floor getFloor() {
+        return floor;
+    }
+    
     /**
      * Returns room type from current object.
      *
@@ -95,11 +99,12 @@ public class Room implements IObservers {
             // If asses roles taking in the current role returns true access was found.
             if (this.assessRoles(roles.get(i))) {
                 this.logger.createAccessLog(card, this.floor.getFloorNumber(), this.floor.getBuilding().getName(), this.RoomName, true);
-                //return true; Fiddling (Do we I need this, messes up testing/(testTryRoomAccessContractCleaner())
+                return true; 
             }
         }
         return false;
     }
+    
 
     /**
      * Given a Role, assess if Card has access to a room.
@@ -133,7 +138,7 @@ public class Room implements IObservers {
                 if (this.RoomMode != "Normal") {
                     return false;
                 }
-                if (this.RoomType == "LectureHall" && this.RoomType == "StudentLab" && this.RoomType == "ResearchLab" && this.RoomType == "StaffRoom") {
+                if (this.RoomType == "LectureHall" || this.RoomType == "StudentLab" || this.RoomType == "ResearchLab" || this.RoomType == "StaffRoom") {
                     return true;
                 }
 
@@ -147,41 +152,47 @@ public class Room implements IObservers {
                 return false;
 
             case "Student":
+                Boolean roomOk = false;
                 if (this.RoomMode != "Normal") {
+                    
                     return false;
                 }
-                if (this.RoomType == "LectureHall" && this.RoomType == "StudentLab") {
+                if (this.RoomType == "LectureHall" || this.RoomType == "StudentLab") {
+                    
+                    roomOk = true;
                     return true;
                 }
 
                 start = LocalTime.of(8, 30);
                 end = LocalTime.of(22, 00);
 
-                if (this.RoomTime.CheckTimeBetweenRange(start, end)) {
+                if (this.RoomTime.CheckTimeBetweenRange(start, end) && roomOk == true) {
                     return true; //if not within time ranges, true.
                 }
 
                 return false;
 
             case "ContractCleaner":
+                Boolean roomOk1 = false;
                 if (this.RoomMode != "Normal") {
                     return false;
                 }
                 if (this.RoomType != "SecureRoom") {
+                    roomOk1 = true;
                     return true;
                 }
 
                 start = LocalTime.of(5, 30);
                 end = LocalTime.of(10, 30);
 
-                if (this.RoomTime.CheckTimeBetweenRange(start, end)) {
+                if (this.RoomTime.CheckTimeBetweenRange(start, end) && roomOk1 == true) {
                     return true; //if not within time ranges, true.
                 }
 
                 start = LocalTime.of(17, 30);
                 end = LocalTime.of(22, 30);
 
-                if (this.RoomTime.CheckTimeBetweenRange(start, end)) {
+                if (this.RoomTime.CheckTimeBetweenRange(start, end) && roomOk1 == true) {
                     return true; //if not within time ranges, true.
                 }
 

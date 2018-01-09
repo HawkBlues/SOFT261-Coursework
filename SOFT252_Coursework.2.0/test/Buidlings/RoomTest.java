@@ -6,6 +6,9 @@
 package Buidlings;
 
 import accessPeople.ContractCleaner;
+import accessPeople.EmergencyResponder;
+import accessPeople.Manager;
+import accessPeople.Security;
 import accessPeople.Staff;
 import accessPeople.Student;
 import accessPeople.Visitor;
@@ -28,12 +31,16 @@ public class RoomTest {
     private Campus campus;
     private Building building;
     private Floor floor;
-    private Room room;
+    private Room roomLH;
+    private Room roomSR;
     private Student student;
     private Visitor visitor;
     private LocalTime localTime;
     private Staff staff;
     private ContractCleaner contractCleaner;
+    private Manager manager;
+    private Security security;
+    private EmergencyResponder emergencyResponder;
 
     public RoomTest() {
 
@@ -43,13 +50,10 @@ public class RoomTest {
 
         this.floor = new Floor(3, this.building);
 
-        this.room = new Room("BGB", "LectureHall", this.floor);
+        this.roomLH = new Room("BGB", "LectureHall", this.floor);//Lecture Hall
 
-//        List<String> Role = new ArrayList();
-//
-//        Role.add("Student");
-//
-//        this.student = new Student(3232, "Joe", Role);
+        this.roomSR = new Room("BGB", "SecureRoom", this.floor);//Secure Room
+
     }
 
     @BeforeClass
@@ -108,7 +112,7 @@ public class RoomTest {
      */
     @Test
     public void testGetRoomMode() {
-        assertEquals(this.room.getRoomMode(), "Normal");
+        assertEquals(this.roomLH.getRoomMode(), "Normal");
     }
 
     /**
@@ -116,7 +120,7 @@ public class RoomTest {
      */
     @Test
     public void testGetRoomType() {
-        assertEquals(this.room.getRoomType(), "LectureHall");
+        assertEquals(this.roomLH.getRoomType(), "LectureHall");
     }
 
     /**
@@ -124,7 +128,7 @@ public class RoomTest {
      */
     @Test
     public void testGetRoomName() {
-        assertEquals(this.room.getRoomName(), "BGB");
+        assertEquals(this.roomLH.getRoomName(), "BGB");
     }
 
     /**
@@ -134,7 +138,7 @@ public class RoomTest {
      * @throws Exception
      */
     @Test
-    //put time in, then try with two different rooms.
+
     public void testTryRoomAccessStudent() throws Exception {
 
         List<String> Role = new ArrayList();
@@ -149,13 +153,31 @@ public class RoomTest {
         StartTime = LocalTime.of(8, 30);
 
         if (localTime.isAfter(EndTime) || localTime.isBefore(StartTime)) {
-            assertFalse(this.room.tryRoomAccess(this.student.getMySwipeCard()));
+            assertFalse(this.roomLH.tryRoomAccess(this.student.getMySwipeCard()));
         } else {
-            assertTrue(this.room.tryRoomAccess(this.student.getMySwipeCard()));
+            assertTrue(this.roomLH.tryRoomAccess(this.student.getMySwipeCard()));
         }
 
     }
 
+    @Test
+    public void testTrySecureRoomAccessStudent() throws Exception {
+
+        List<String> Role = new ArrayList();
+
+        Role.add("Student");
+
+        this.student = new Student(3232, "Joe", Role);
+
+        assertFalse(this.roomSR.tryRoomAccess(this.student.getMySwipeCard()));
+    }
+
+    /**
+     * Confirms that a Visitors can/cannot access Lecture Hall dependent on
+     * local time.
+     *
+     * @throws Exception
+     */
     @Test
     public void testTryRoomAccessVisitor() throws Exception {
 
@@ -171,14 +193,30 @@ public class RoomTest {
         StartTime = LocalTime.of(8, 30);
 
         if (localTime.isAfter(EndTime) || localTime.isBefore(StartTime)) {
-            assertFalse(this.room.tryRoomAccess(this.visitor.getMySwipeCard()));
+            assertFalse(this.roomLH.tryRoomAccess(this.visitor.getMySwipeCard()));
         } else {
-            assertTrue(this.room.tryRoomAccess(this.visitor.getMySwipeCard()));
+            assertTrue(this.roomLH.tryRoomAccess(this.visitor.getMySwipeCard()));
         }
     }
 
     @Test
-    public void testTryRoomAccessStaff() throws Exception {
+    public void testTrySecureRoomAccessVisitor() throws Exception {
+        List<String> Role = new ArrayList();
+
+        Role.add("Visitor");
+
+        this.visitor = new Visitor(333, "Max", Role);
+        assertFalse(this.roomSR.tryRoomAccess(this.visitor.getMySwipeCard()));
+    }
+
+    /**
+     * Confirms that Staff can/cannot access Lecture Hall dependent on local
+     * time.
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testTryRoomAccessStaff() throws Exception {//Uses LectureHall
 
         List<String> Role = new ArrayList();
 
@@ -192,43 +230,117 @@ public class RoomTest {
         StartTime = LocalTime.of(8, 30);
 
         if (localTime.isAfter(EndTime) || localTime.isBefore(StartTime)) {
-            assertFalse(this.room.tryRoomAccess(this.staff.getMySwipeCard()));
+            assertFalse(this.roomLH.tryRoomAccess(this.staff.getMySwipeCard()));
         } else {
-            assertTrue(this.room.tryRoomAccess(this.staff.getMySwipeCard()));
+            assertTrue(this.roomLH.tryRoomAccess(this.staff.getMySwipeCard()));
         }
 
     }
 
     @Test
+    public void testTrySecureRoomAccessStaff() throws Exception { //Uses Secure Room
+        List<String> Role = new ArrayList();
+
+        Role.add("Staff");
+
+        this.staff = new Staff(333, "Max", Role);
+
+        LocalTime EndTime;
+        LocalTime StartTime;
+        EndTime = LocalTime.of(23, 59, 59);
+        StartTime = LocalTime.of(8, 30);
+
+        if (localTime.isAfter(EndTime) || localTime.isBefore(StartTime)) {
+            assertFalse(this.roomSR.tryRoomAccess(this.staff.getMySwipeCard()));
+        } else {
+            assertTrue(this.roomSR.tryRoomAccess(this.staff.getMySwipeCard()));
+        }
+    }
+
+    /**
+     * Confirms that a ContractCleaner can/cannot access Lecture Hall dependent
+     * on local time.
+     *
+     * @throws Exception
+     */
+    @Test
     public void testTryRoomAccessContractCleaner() throws Exception {
 
         List<String> Role = new ArrayList();
 
-        Role.add("ContractCleaner");
+        Role.add("ContractCleaner"); //Testing with ContactCleaner
 
-        this.contractCleaner = new ContractCleaner(333, "Max", Role);
+        this.contractCleaner = new ContractCleaner(333, "Max", Role);//Produce new ContractCleaner object, held by contactCleaner
 
         LocalTime EndTime;
         LocalTime StartTime;
         EndTime = LocalTime.of(10, 30);
         StartTime = LocalTime.of(5, 30);
 
-        if (localTime.isAfter(EndTime) || localTime.isBefore(StartTime)) {
-            assertFalse(this.room.tryRoomAccess(this.contractCleaner.getMySwipeCard()));//Returning True?
+        if (localTime.isAfter(EndTime) && localTime.isBefore(StartTime)) { //If the current Time is after EndTime and the current time is before the StartTime. Assume it's false.
+
+            assertFalse(this.roomLH.tryRoomAccess(this.contractCleaner.getMySwipeCard()));
 
         }
 
         EndTime = LocalTime.of(22, 30);
         StartTime = LocalTime.of(17, 30);
 
-        if (localTime.isAfter(EndTime) || localTime.isBefore(StartTime)) {
-            assertFalse(this.room.tryRoomAccess(this.contractCleaner.getMySwipeCard()));//Also returning true...
+        if (localTime.isAfter(EndTime) && localTime.isBefore(StartTime)) { //If the current Time is after new EndTime and the current time is before the new StartTime. Assume it's false.
+
+            assertFalse(this.roomLH.tryRoomAccess(this.contractCleaner.getMySwipeCard()));
 
         } else {
 
-            assertTrue(this.room.tryRoomAccess(this.contractCleaner.getMySwipeCard()));
+            assertTrue(this.roomLH.tryRoomAccess(this.contractCleaner.getMySwipeCard()));//Assume it's true, as the time is not before the startTime or after the End time in both other If statementds.
         }
 
+    }
+
+    @Test
+    public void testTrySecureRoomAccessContractCleaner() throws Exception {//Uses SecureRoom
+        List<String> Role = new ArrayList();
+
+        Role.add("ContractCleaner");
+
+        this.visitor = new Visitor(333, "Max", Role);
+        assertFalse(this.roomSR.tryRoomAccess(this.visitor.getMySwipeCard()));
+    }
+
+    @Test
+    public void testTrySecureRoomAccessManager() throws Exception {//Uses SecureRoom
+
+        List<String> Role = new ArrayList();
+
+        Role.add("Manager");
+
+        this.manager = new Manager(333, "Max", Role);
+
+        assertTrue(this.roomSR.tryRoomAccess(this.manager.getMySwipeCard()));
+    }
+
+    @Test
+    public void testTrySecureRoomAccessSecurity() throws Exception {//Uses SecureRoom
+
+        List<String> Role = new ArrayList();
+
+        Role.add("Security");
+
+        this.security = new Security(333, "Max", Role);
+
+        assertTrue(this.roomSR.tryRoomAccess(this.security.getMySwipeCard()));
+    }
+
+    @Test
+    public void testTrySecureRoomAccessEmergencyResponder() throws Exception {//Uses SecureRoom
+
+        List<String> Role = new ArrayList();
+
+        Role.add("EmergencyResponder");
+
+        this.emergencyResponder = new EmergencyResponder(333, "Max", Role);
+
+        assertFalse(this.roomSR.tryRoomAccess(this.emergencyResponder.getMySwipeCard()));
     }
 
     @Test
