@@ -5,13 +5,14 @@
  */
 package accessPeople;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  *Produces swipecard object, populated with given parameters.
  * 
  */
-public class SwipeCard {
+public class SwipeCard implements Serializable {
     
     private Integer ID;
     private String Name;

@@ -5,13 +5,14 @@
  */
 package accessPeople;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * People Factory Class follows Factory Pattern to create new people.
  *
  */
-public class PeopleFactory { //factory class
+public class PeopleFactory  implements Serializable{ //factory class
 
     public PeopleFactory() {
 

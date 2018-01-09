@@ -5,13 +5,14 @@
  */
 package accessPeople;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Abstract class Person, used as Base class for all card holders. instantiates
  * Property Swipecard.
  */
-public abstract class Person {
+public abstract class Person implements Serializable {
 
     private SwipeCard MySwipeCard;
 

@@ -5,13 +5,14 @@
  */
 package accessPeople;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  *Creates Class Manager and calls Super Class Constructor with given parameters.
  * 
  */
-public class Manager extends Person {
+public class Manager extends Person implements Serializable {
 
     public Manager(Integer id, String name, List<String> role) {
         super(id, name, role);

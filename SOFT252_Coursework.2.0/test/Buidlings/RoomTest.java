@@ -5,6 +5,10 @@
  */
 package Buidlings;
 
+import Buildings.Room;
+import Buildings.Building;
+import Buildings.Campus;
+import Buildings.Floor;
 import accessPeople.ContractCleaner;
 import accessPeople.EmergencyResponder;
 import accessPeople.Manager;

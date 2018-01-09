@@ -5,11 +5,11 @@
  */
 package soft252_coursework.pkg2.pkg0;
 
-import Buidlings.Building;
-import Buidlings.Campus;
+import Buildings.Building;
+import Buildings.Campus;
 import Buidlings.Logging.Logger;
-import Buidlings.Room;
-import Buidlings.RoomAccessTime;
+import Buildings.Room;
+import Buildings.RoomAccessTime;
 import accessPeople.PeopleFactory;
 import accessPeople.Person;
 import java.io.IOException;

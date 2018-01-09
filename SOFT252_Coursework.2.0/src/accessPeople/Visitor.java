@@ -5,13 +5,14 @@
  */
 package accessPeople;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Creates Class Visitor and calls Super Class Constructor with given parameters..
  * 
  */
-public class Visitor extends Person {
+public class Visitor extends Person implements Serializable{
     
     public Visitor(Integer id, String name, List<String> role) {
         super(id, name, role);

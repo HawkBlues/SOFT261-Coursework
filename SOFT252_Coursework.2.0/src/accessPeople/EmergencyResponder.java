@@ -5,13 +5,14 @@
  */
 package accessPeople;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  *Creates Class EmergencyResponder and calls Super Class Constructor with given parameters.
  *
  */
-public class EmergencyResponder extends Person {
+public class EmergencyResponder extends Person implements Serializable{
 
     public EmergencyResponder(Integer id, String name, List<String> role) {
         super(id, name, role);

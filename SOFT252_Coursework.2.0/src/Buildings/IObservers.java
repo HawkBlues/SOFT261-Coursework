@@ -3,16 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Buidlings;
+package Buildings;
 
 /**
- *Produces interface IBuilding
- * Ensures getName & setName methods is available .
+ * Produces IObservers interface.
+ * Ensures update method with String mode parameter is available 
  * 
  */
-public interface IBuilding {
-     
-    public String getName();
-    public void setName(String name);
+public interface IObservers {
+    
+    public void update(String mode);
     
 }

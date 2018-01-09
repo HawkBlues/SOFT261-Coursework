@@ -5,13 +5,14 @@
  */
 package accessPeople;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Creates Class ContractCleaner and calls Super Class Constructor with given parameters.
  * 
  */
-public class ContractCleaner extends Person {
+public class ContractCleaner extends Person implements Serializable {
     
     public ContractCleaner(Integer id, String name, List<String> role) {
         super(id, name, role);

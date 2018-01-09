@@ -5,13 +5,14 @@
  */
 package accessPeople;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Creates Class Person and calls Super Class Constructor with given parameters.
  * 
  */
-public class Staff extends Person {
+public class Staff extends Person implements Serializable {
     
     public Staff(Integer id, String name, List<String> role) {
         super(id, name, role);
